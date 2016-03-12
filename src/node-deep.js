@@ -6,21 +6,28 @@ import { curry,
          is,
          append,
          concat,
-         keys } from 'ramda';
-
-const mapValues = curry((fn, obj) => fromPairs(map(adjust(fn, 1), toPairs(obj))));
+         keys,
+         init,
+         last,
+         values,
+         head,
+         reduce,
+         defaultTo } from 'ramda';
 
 function nodeDeep(obj, callback, path = []) {
   if (is(Object, obj) && !is(Date, obj) && !is(RegExp, obj) && !is(Function, obj)) {
-    console.log('blah');
-    map(curry(iteratee)(callback), 
-        map(concat(path), keys(obj)));
+    return fromPairs(map(curry(iteratee)(callback, path), toPairs(obj)));
   }
-
+  return obj;
 }
 
-function iteratee(callback, path) {
-  callback(path);
+function iteratee(callback, path, value) {
+  const p = concat(path, head(value));
+  const l = last(value);
+  if (!defaultTo(false, callback(p, l))) {
+    const res = nodeDeep(l, callback, p);
+    return [head(value), res];
+  }
 }
 
 export default nodeDeep;
