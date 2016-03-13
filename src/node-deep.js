@@ -31,6 +31,6 @@ const iteratee = curry((callback, path, pair) => {
   }
 });
 
-const deep = binary(_deep);
+const deep = curry(binary(_deep));
 
 export default deep;
