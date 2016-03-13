@@ -14,8 +14,8 @@ describe('deep', () => {
     const pred = () => false;
     const obj = { a: 'b' };
     const res = deep(pred, obj);
-    expect(res).not.to.equal(obj);
     expect(res).to.deep.equal(obj);
+    expect(res).not.to.equal(obj);
   });
 
   it('omits', () => {
