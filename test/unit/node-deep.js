@@ -25,12 +25,12 @@ describe('deep', () => {
   });
 
   it('replaces', () => {
-    const pred = (path, val) => {
+    const replaceFn = (path, val) => {
       if (path.join('.') === 'c.d.e') {
         return { f: 'g' };
       };
     };
-    const res = deep(pred, { a: 'b', c: { d: { e: 'f' } } });
+    const res = deep(replaceFn, { a: 'b', c: { d: { e: 'f' } } });
     expect(res).to.eql({ a: 'b', c: { d: { f: 'g' } } });
   });
 });
