@@ -1,4 +1,4 @@
-import deep from '../../src/node-deep';
+import deep from '../../src/deep';
 
 describe('deep', () => {
   it('calls back for every node', () => {
