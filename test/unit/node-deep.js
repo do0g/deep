@@ -24,6 +24,12 @@ describe('deep', () => {
     expect(res).to.eql({ a: 'b', c: {} });
   });
 
+  it('omits though array paths', () => {
+    const pred = (path, val) => path.join('.') === 'c.d.e';
+    const res = deep(pred, { a: 'b', c: { d: [{ e: 'f' }, { g: 'h' }] } });
+    expect(res).to.eql({ a: 'b', c: { d: [{ g: 'h' }]} });
+  });
+
   it('replaces', () => {
     const replaceFn = (path, val) => {
       if (path.join('.') === 'c.d.e') {
