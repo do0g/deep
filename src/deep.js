@@ -11,20 +11,16 @@ import { curry,
          mergeAll,
          binary,
          keys,
-         _,
+         __,
          filter,
          isEmpty,
          compose } from 'ramda';
 
 const isPlainObject = obj => is(Object, obj) && !is(Date, obj) && !is(RegExp, obj) && !is(Function, obj);
 
-function temp(callback, path, obj) {
-  return _deep(callback, obj, path);
-}
-
-function _deep(callback, obj, path = []) {
+function _deep(callback, obj, path) {
   if (is(Array, obj)) {
-    return filter(compose(not, isEmpty), map(curry(temp)(callback, path), obj));
+    return filter(compose(not, isEmpty), map(curry(_deep)(callback, __, path), obj));
   }
   if (isPlainObject(obj)) {
     return mergeAll(map(iteratee(callback, path), toPairs(obj)));
@@ -43,6 +39,6 @@ const iteratee = curry((callback, path, pair) => {
   }
 });
 
-const deep = curry(binary(_deep));
+const deep = (callback, obj) => _deep(callback, obj, []);
 
 export default deep;
