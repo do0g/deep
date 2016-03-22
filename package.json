@@ -1,7 +1,7 @@
 {
-  "name": "deep",
+  "name": "deep-transform",
   "version": "0.0.1",
-  "description": "Deep graph traversal for Javascript",
+  "description": "Deep graph traversal and transformation for Javascript",
   "main": "dist/deep.js",
   "scripts": {
     "test": "gulp",
