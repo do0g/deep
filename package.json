@@ -1,7 +1,7 @@
 {
   "name": "deep",
   "version": "0.0.1",
-  "description": "Deep graph traversal for Node",
+  "description": "Deep graph traversal for Javascript",
   "main": "dist/deep.js",
   "scripts": {
     "test": "gulp",
@@ -13,15 +13,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/do0g/node-deep.git"
+    "url": "https://github.com/do0g/deep.git"
   },
   "keywords": [],
   "author": "do0g <do0g.dev@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/do0g/node-deep/issues"
+    "url": "https://github.com/do0g/deep/issues"
   },
-  "homepage": "https://github.com/do0g/node-deep",
+  "homepage": "https://github.com/do0g/deep",
   "devDependencies": {
     "babel-core": "^6.3.26",
     "babel-eslint": "^4.1.6",
