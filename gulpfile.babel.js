@@ -68,7 +68,7 @@ function build() {
       },
       module: {
         loaders: [
-          { test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader' }
+          { test: /\.js$/, exclude: /node_modules/, loader: 'babel?{"plugins":["babel-plugin-add-module-exports"]}' }
         ]
       },
       devtool: 'source-map'
