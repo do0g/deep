@@ -10,7 +10,7 @@ describe('deep', () => {
     expect(cb).to.have.been.calledWith(['c', 'd', 'e'], 'f');
   });
 
-  it(`doesn't mutate the source object graph`, () => {
+  it('doesn\'t mutate the source object graph', () => {
     const pred = () => false;
     const obj = { a: 'b' };
     const res = deep(pred, obj);
