@@ -14,6 +14,7 @@ import { curry,
          __,
          filter,
          isEmpty,
+         curryN,
          compose } from 'ramda';
 
 const isPlainObject = obj => is(Object, obj) && !is(Date, obj) && !is(RegExp, obj) && !is(Function, obj);
@@ -39,4 +40,4 @@ const iteratee = curry((callback, path, pair) => {
   }
 });
 
-export default (callback, obj) => deep(callback, obj, []);
+export default curryN(2, (callback, obj) => deep(callback, obj, []));

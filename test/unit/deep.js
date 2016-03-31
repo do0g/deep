@@ -39,4 +39,8 @@ describe('deep', () => {
     const res = deep(replaceFn, { a: 'b', c: { d: { e: 'f' } } });
     expect(res).to.eql({ a: 'b', c: { d: { f: 'g' } } });
   });
+
+  it('is curried', () => {
+    expect(deep(()=> {})).to.be.a.function;
+  });
 });
