@@ -4,7 +4,7 @@
   "description": "Deep graph traversal and transformation for Javascript",
   "main": "dist/deep.js",
   "scripts": {
-    "build": "rm -rf ./dist/* && babel src -d dist",
+    "build": "npm run test && rm -rf ./dist/* && babel src -d dist",
     "test": "mocha --compilers js:babel-register test/setup/node.js test/unit/**/*.js",
     "lint": "eslint src/**/*.js test/**/*.js",
     "posttest": "npm run lint",
