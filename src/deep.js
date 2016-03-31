@@ -19,15 +19,15 @@ import { curry,
 
 const isPlainObject = obj => is(Object, obj) && !is(Date, obj) && !is(RegExp, obj) && !is(Function, obj);
 
-function deep(callback, obj, path) {
+const deep = curry((callback, obj, path) => {
   if (is(Array, obj)) {
-    return filter(compose(not, isEmpty), map(curry(deep)(callback, __, path), obj));
+    return filter(compose(not, isEmpty), map(deep(callback, __, path), obj));
   }
   if (isPlainObject(obj)) {
     return mergeAll(map(iteratee(callback, path), toPairs(obj)));
   }
   return obj;
-}
+});
 
 const iteratee = curry((callback, path, pair) => {
   const newPath = append(head(pair), path);
