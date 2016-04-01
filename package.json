@@ -1,6 +1,6 @@
 {
   "name": "deep-transform",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Deep graph traversal and transformation for Javascript",
   "main": "dist/deep.js",
   "scripts": {

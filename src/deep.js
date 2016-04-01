@@ -15,6 +15,8 @@ import { curry,
          filter,
          isEmpty,
          curryN,
+         complement,
+         isNil,
          compose } from 'ramda';
 
 const isPlainObject = obj => is(Object, obj) && !is(Date, obj) && !is(RegExp, obj) && !is(Function, obj);
@@ -24,7 +26,7 @@ const deep = curry((callback, obj, path) => {
     return filter(compose(not, isEmpty), map(deep(callback, __, path), obj));
   }
   if (isPlainObject(obj)) {
-    return mergeAll(map(iteratee(callback, path), toPairs(obj)));
+    return mergeAll(filter(complement(isNil), map(iteratee(callback, path), toPairs(obj))));
   }
   return obj;
 });

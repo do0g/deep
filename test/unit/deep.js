@@ -18,10 +18,16 @@ describe('deep', () => {
     expect(res).not.to.equal(obj);
   });
 
+  it('omits in array', () => {
+    const pred = (path, val) => path.join('.') === 'c.d';
+    const res = deep(pred, { a: 'b', c: [{ d: true }] });
+    expect(res).to.eql({ a: 'b', c: [] });
+  });
+
   it('omits', () => {
     const pred = (path, val) => path.join('.') === 'c.d';
-    const res = deep(pred, { a: 'b', c: { d: { e: 'f' } } });
-    expect(res).to.eql({ a: 'b', c: {} });
+    const res = deep(pred, { a: 'b', c: { d: { e: 'f' }, g: 'h' } });
+    expect(res).to.eql({ a: 'b', c: { g: 'h' } });
   });
 
   it('omits though array paths', () => {
