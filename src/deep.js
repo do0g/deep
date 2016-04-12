@@ -21,14 +21,67 @@ import { curry,
 
 const isPlainObject = obj => is(Object, obj) && !is(Date, obj) && !is(RegExp, obj) && !is(Function, obj);
 
-const deep = curry((callback, obj, path) => {
-  if (is(Array, obj)) {
-    return filter(compose(not, isEmpty), map(deep(callback, __, path), obj));
+const deep = curry((callback, root, rootPath) => {
+  console.log(JSON.stringify(root));
+//  let stack = [], next;
+//  stack.push([rootPath, toPairs(root)]);
+//  while (next = stack.pop()) {
+//    console.log(next);
+//    const [ basePath, pairs ] = next;
+//    map(pair => {
+//      const key   = head(pair);
+//      const value = last(pair);
+//      const path  = append(key, basePath);
+//      if (isPlainObject(value)) {
+//        stack.push([path, toPairs(value)]);
+//      }
+//    }, pairs);
+//  }
+
+  let stack = [], index = 0, length = 0;
+  toPairs(root).forEach(p => {
+    stack.push([rootPath, p]);
+    length++;
+  });
+  for (let index = 0; index < length; index++) {
+    const next = stack[index];
+    console.log(next);
+    const [ basePath, pair ] = next;
+    const key   = head(pair);
+    const value = last(pair);
+    const path  = append(key, basePath);
+    if (isPlainObject(value)) {
+      toPairs(value).forEach(p => {
+        stack.push([path, p]);
+        length++;
+      });
+    }
   }
-  if (isPlainObject(obj)) {
-    return mergeAll(filter(complement(isNil), map(iteratee(callback, path), toPairs(obj))));
-  }
-  return obj;
+//  let stack = [], index = 0, length = 1;
+//  stack.push([rootPath, toPairs(root)]);
+//  for (let index = 0; index < length; index++) {
+//    const next = stack[index];
+//    console.log(next);
+//    const [ basePath, pairs ] = next;
+//    map(pair => {
+//      const key   = head(pair);
+//      const value = last(pair);
+//      const path  = append(key, basePath);
+//      if (isPlainObject(value)) {
+//        const pairs = toPairs(value);
+//        length += pairs.length;
+//        stack.push([path, pairs]);
+//      }
+//    }, pairs);
+//  }
+
+//  if (is(Array, obj)) {
+//    return filter(compose(not, isEmpty), map(deep(callback, __, path), obj));
+//  }
+//  if (isPlainObject(obj)) {
+//    return mergeAll(filter(complement(isNil), map(iteratee(callback, path), toPairs(obj))));
+//  }
+//  return obj;
 });
 
 const iteratee = curry((callback, path, pair) => {
